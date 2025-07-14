@@ -1,0 +1,36 @@
+{
+  "user": {
+    "id": 1,
+    "fullName": "Nguyễn Văn An",
+    "phone": "0901234567",
+    "email": "nguyenvanan@gmail.com",
+    "address": "123 Đường ABC, Quận 1, TP.HCM",
+    "dateOfBirth": "01/01/1990",
+    "gender": "Nam",
+    "isLoggedIn": true
+  },
+  "appointments": [
+    {
+      "id": 1,
+      "fullName": "Nguyễn Văn An",
+      "service": "general-checkup",
+      "date": "15/07/2025",
+      "time": "09:00",
+      "status": "confirmed",
+      "appointmentType": "offline",
+      "notes": "Khám tổng quát định kỳ",
+      "createdAt": "2025-07-10T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "fullName": "Nguyễn Văn An",
+      "service": "teeth-cleaning",
+      "date": "20/07/2025",
+      "time": "14:30",
+      "status": "pending",
+      "appointmentType": "offline",
+      "notes": "Vệ sinh răng miệng",
+      "createdAt": "2025-07-12T15:30:00Z"
+    }
+  ]
+}
