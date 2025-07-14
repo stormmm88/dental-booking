@@ -1,0 +1,9 @@
+# Ignore node_modules ở cả 2 thư mục
+dental_booking/node_modules/
+database/node_modules/
+
+# Các ignore phổ biến khác
+.env
+.DS_Store
+*.log
+
