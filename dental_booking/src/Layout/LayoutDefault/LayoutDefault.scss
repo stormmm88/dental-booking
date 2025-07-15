@@ -1,0 +1,64 @@
+.layout-default {
+    &__header {
+        background: orange;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+    &__main {
+        padding: 20px;
+    }
+
+    &__footer {
+        background: rgb(19, 98, 189);
+        text-align: center;
+        padding: 10px 20px;
+    }
+}
+
+.menu {
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+        li {
+            margin-left: 20px;
+            position: relative;
+        }
+    }
+
+    &__link{
+        color: #000;
+        text-decoration: none;
+
+        &--active {
+            color: #fff;
+        }
+    }
+
+    &__sub{
+        position: absolute;
+        top: 100%;
+        background: orangered;
+        right: 0;
+        display: none!important;
+
+        li {
+            margin-left: 0!important;
+        }
+
+        a {
+            white-space: nowrap;
+            display: block;
+            padding: 4px 10px;
+        }
+    }
+
+    li:hover > &__sub {
+        display: flex!important;
+    }
+}

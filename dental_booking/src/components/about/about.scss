@@ -1,0 +1,308 @@
+// Import variables (assuming they're in a separate file)
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$accent-color: #10b981;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$white: #ffffff;
+$light-bg: #f8fafc;
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-heavy;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: 1024px) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: 1025px) { @content; }
+  }
+}
+
+// About Section
+.about__section {
+  padding: 80px 0;
+  // background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+  
+  @include responsive(mobile) {
+    padding: 60px 0;
+  }
+  
+  // Background decorations similar to hero
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -30%;
+    width: 60%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -30%;
+    width: 60%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite reverse;
+  }
+}
+
+.about__row {
+  position: relative;
+  z-index: 2;
+}
+
+// Image Styles
+.about__image {
+  position: relative;
+  
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: $shadow-heavy;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  
+  // Decorative elements matching hero style
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    right: 40px;
+    bottom: 40px;
+    background: linear-gradient(135deg, $accent-color, #8b5cf6);
+    border-radius: 20px;
+    z-index: -2;
+    opacity: 0.05;
+  }
+}
+
+// Content Styles
+.about__content {
+  padding: 0 20px;
+  
+  @include responsive(mobile) {
+    padding: 20px 0;
+    text-align: center;
+  }
+}
+
+.about__link {
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+// Button
+.btn {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  color: $white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: $shadow-medium;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  
+  @include button-hover;
+  
+  @include responsive(mobile) {
+    padding: 14px 24px;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  // Ripple effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Title matching hero style
+.about__title {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: $text-primary;
+  
+  @include responsive(tablet) {
+    font-size: 2.5rem;
+  }
+  
+  @include responsive(mobile) {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  // Highlight text matching hero
+  span {
+    color: $primary-color;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 2px;
+    }
+  }
+}
+
+// Description matching hero style
+.about__desc {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  
+  @include responsive(mobile) {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  &--primary {
+    color: $text-primary;
+    font-weight: 500;
+  }
+  
+  &--secondary {
+    color: $text-secondary;
+    font-weight: 400;
+  }
+}
+
+// Animations matching hero
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation classes
+.about__content > * {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.about__link {
+  animation-delay: 0.1s;
+}
+
+.about__title {
+  animation-delay: 0.2s;
+}
+
+.about__desc--primary {
+  animation-delay: 0.3s;
+}
+
+.about__desc--secondary {
+  animation-delay: 0.4s;
+}
+
+.about__image {
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+// Responsive adjustments
+@include responsive(tablet) {
+  .about__section {
+    padding: 60px 0;
+  }
+}
+
+@include responsive(mobile) {
+  .about__section {
+    padding: 40px 0;
+  }
+  
+  .about__content {
+    order: 1;
+  }
+  
+  .about__image {
+    order: 2;
+    margin-top: 2rem;
+  }
+}

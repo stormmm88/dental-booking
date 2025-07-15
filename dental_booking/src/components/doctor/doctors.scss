@@ -1,0 +1,293 @@
+// Variables
+$primary-color: #0066cc;
+$secondary-color: #f8f9fa;
+$text-color: #333;
+$white: #ffffff;
+$overlay-bg: rgba(0, 0, 0, 0.6);
+$overlay-hover: rgba(0, 0, 0, 0.8);
+$border-radius: 12px;
+$transition: all 0.3s ease;
+$shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+$shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.18);
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Main Section
+.doctors__section {
+    padding: 80px 0;
+    background-color: $secondary-color;
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+}
+
+// Header Styles
+.doctors__header {
+    margin-bottom: 60px;
+    
+    .doctors__title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $text-color;
+        margin-bottom: 20px;
+        line-height: 1.2;
+        
+        span {
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background-color: $primary-color;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+    
+    .doctors__desc {
+        font-size: 1.1rem;
+        color: lighten($text-color, 20%);
+        line-height: 1.6;
+        margin-bottom: 0;
+        
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
+    }
+}
+
+// Button Styles
+.doctors__button-wrapper {
+    @include flex-center;
+    height: 100%;
+    
+    @media (max-width: 768px) {
+        margin-top: 30px;
+        justify-content: flex-start;
+    }
+    
+    .doctors__link {
+        text-decoration: none;
+        
+        .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: $border-radius;
+            cursor: pointer;
+            transition: $transition;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            
+            &--doctors {
+                background-color: $primary-color;
+                color: $white;
+                
+                &:hover {
+                    background-color: darken($primary-color, 10%);
+                    transform: translateY(-2px);
+                    box-shadow: $shadow;
+                }
+            }
+        }
+    }
+}
+
+// Grid Styles
+.doctors__grid {
+    .doctor__card {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease forwards;
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+// Doctor Card Styles
+.doctor__card {
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: $shadow;
+    transition: $transition;
+    background-color: $white;
+    
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: $shadow-hover;
+        
+        .doctor__image {
+            transform: scale(1.05);
+        }
+        
+        .doctor__overlay {
+            opacity: 1;
+            background-color: $overlay-hover;
+        }
+    }
+}
+
+// Image Container
+.doctor__image-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    
+    @media (max-width: 768px) {
+        height: 300px;
+    }
+    
+    @media (max-width: 480px) {
+        height: 250px;
+    }
+}
+
+// Image Styles
+.doctor__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: $transition;
+    display: block;
+}
+
+// Overlay Styles
+.doctor__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $overlay-bg;
+    @include flex-center;
+    opacity: 0;
+    transition: $transition;
+    
+    .doctor__info {
+        text-align: center;
+        color: $white;
+        padding: 20px;
+        transform: translateY(20px);
+        transition: $transition;
+        
+        .doctor__name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: $white;
+            @include text-overflow;
+            
+            @media (max-width: 768px) {
+                font-size: 1.3rem;
+            }
+        }
+        
+        .doctor__role {
+            font-size: 1rem;
+            font-weight: 400;
+            color: lighten($white, 10%);
+            margin-bottom: 0;
+            opacity: 0.9;
+            
+            @media (max-width: 768px) {
+                font-size: 0.9rem;
+            }
+        }
+    }
+    
+    &:hover {
+        .doctor__info {
+            transform: translateY(0);
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+    .doctors__section {
+        padding: 60px 0;
+    }
+    
+    .doctors__header {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .doctors__section {
+        padding: 40px 0;
+    }
+    
+    .doctors__header {
+        margin-bottom: 30px;
+        
+        .doctors__title {
+            margin-bottom: 15px;
+        }
+    }
+    
+    .doctors__grid {
+        .ant-col {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .doctors__section {
+        .container {
+            padding: 0 15px;
+        }
+    }
+    
+    .doctors__header {
+        .doctors__title {
+            font-size: 1.8rem;
+        }
+    }
+    
+    .doctors__button-wrapper {
+        .btn {
+            padding: 12px 25px;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// Animation for better UX
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

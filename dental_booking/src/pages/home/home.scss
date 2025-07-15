@@ -1,0 +1,510 @@
+// .hero__section{
+//     background-image: url("../../assets/banner-943866_640.jpg");
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-position: center;
+//     padding-top: 60px;
+//     // min-height: 800px;
+//     overflow: hidden;
+
+//     @media (min-width: 1536px) {
+//     div {
+//         // height: 256px;
+//         height: auto;
+//     }
+// }
+
+// }
+
+// .section__content{
+//     display: flex;
+//     align-items: stretch; // 
+//     height: auto;
+
+//     .ant-row{
+//         flex: 1; // Đảm bảo Row chiếm toàn bộ chiều cao của section
+//         display: flex;
+//         align-items: stretch; // Cân bằng chiều cao của các Col
+//         height: auto;
+//     }
+
+//     .ant-col {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center; // Căn giữa nội dung trong cột
+//         padding: 20px; 
+//     }
+// }
+
+// .section__title{
+//     font-size: 36px;
+//     line-height: 46px;
+//     color: rgb(14, 13, 13);
+//     font-weight: 800;
+
+//     @media (max-width: 768px) {
+//         font-size: 60px;
+//         line-height: 70px;
+//     }
+// }
+
+// .section__desc{
+//     font-size: 18px;
+//     line-height: 30px;
+//     color: black;
+//     font-weight: 400;
+//     margin-top: 18px;
+// }
+
+// .section__counter {
+//     margin-top: 30px;
+//     gap: 0.5rem;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+
+//     // @media (max-width: 768px) {
+//     //     margin-top: 70px;
+//     //     flex-direction: column;
+//     //     align-items: center;
+//     //     gap: 30px;
+//     // }
+// }
+
+// .section__counter--number {
+//     font-size: 36px;
+//     line-height: 56px;
+//     font-weight: 700;
+//     color: rgb(14, 13, 13);
+//     z-index: 2;
+
+//     @media (max-width: 768px) {
+//         font-size: 44px;
+//         line-height: 54px;
+//     }
+// }
+
+// .number__underline{
+//     width: 100px;
+//     height: 0.5rem;
+//     border-radius: 9999px;
+//     display: block;
+//     margin-top: -18px;
+//     z-index: 1;
+
+//     &--01{
+//         background: rgb(209, 197, 87);    
+//     }
+//     &--02{
+//         background: rgb(73, 73, 218);    
+//     }
+//     &--03{
+//         background: purple;    
+//     }
+// }
+// .ImgHero {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 0; // Đảm bảo không bị ép chiều cao từ section
+//   width: 50%;
+
+//   img {
+//     width: 100%;
+//     height: auto;
+//     border-radius: 24px;
+//     object-fit: contain; // Giữ nguyên tỷ lệ, không cắt ảnh
+//   }
+// }
+
+// // Responsive
+// @media (max-width: 768px) {
+//   .section__content .ant-row {
+//     flex-direction: column; // Chuyển thành cột trên màn hình nhỏ
+//   }
+
+//   .ant-col {
+//     width: 100%; // Đảm bảo cột chiếm toàn bộ chiều rộng
+//   }
+
+//   .ImgHero img {
+//     height: auto; // Điều chỉnh chiều cao tự động trên mobile
+//   }
+// }
+
+// Variables
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$accent-color: #10b981;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$white: #ffffff;
+$light-bg: #f8fafc;
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-heavy;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: 1024px) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: 1025px) { @content; }
+  }
+}
+
+// Base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: $text-primary;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @include responsive(mobile) {
+    padding: 0 16px;
+  }
+}
+
+// Hero Section
+.hero__section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  
+  @include responsive(mobile) {
+    padding: 60px 0;
+    min-height: auto;
+  }
+  
+  // Background decorations
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite reverse;
+  }
+}
+
+.section__content {
+  position: relative;
+  z-index: 2;
+}
+
+// Typography
+.section__title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: $text-primary;
+  
+  @include responsive(tablet) {
+    font-size: 2.8rem;
+  }
+  
+  @include responsive(mobile) {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  // Highlight text
+  span {
+    color: $primary-color;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 2px;
+    }
+  }
+}
+
+.section__desc {
+  font-size: 1.125rem;
+  color: $text-secondary;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  
+  @include responsive(mobile) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Button
+.btn {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  color: $white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: $shadow-medium;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  
+  @include button-hover;
+  
+  @include responsive(mobile) {
+    padding: 14px 24px;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  // Ripple effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Counter Section
+.section__counter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @include responsive(mobile) {
+    gap: 1rem;
+  }
+  
+  > div {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: $shadow-light;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-heavy;
+    }
+    
+    @include responsive(mobile) {
+      padding: 1rem;
+    }
+  }
+}
+
+.section__counter--number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  
+  @include responsive(mobile) {
+    font-size: 2rem;
+  }
+}
+
+.number__underline {
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+  
+  &--01 {
+    background: linear-gradient(90deg, $primary-color, #3b82f6);
+  }
+  
+  &--02 {
+    background: linear-gradient(90deg, $accent-color, #22c55e);
+  }
+  
+  &--03 {
+    background: linear-gradient(90deg, #8b5cf6, #a855f7);
+  }
+}
+
+.text__para {
+  font-size: 0.9rem;
+  color: $text-secondary;
+  font-weight: 500;
+  
+  @include responsive(mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+// Hero Image
+.ImgHero {
+  position: relative;
+  
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: $shadow-heavy;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  
+  // Decorative elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    right: 40px;
+    bottom: 40px;
+    background: linear-gradient(135deg, $accent-color, #8b5cf6);
+    border-radius: 20px;
+    z-index: -2;
+    opacity: 0.05;
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation classes
+.section__title,
+.section__desc,
+.btn,
+.section__counter {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.section__desc {
+  animation-delay: 0.2s;
+}
+
+.btn {
+  animation-delay: 0.4s;
+}
+
+.section__counter {
+  animation-delay: 0.6s;
+}
+
+// Responsive adjustments
+@include responsive(tablet) {
+  .hero__section {
+    padding: 60px 0;
+  }
+  
+  .section__counter {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@include responsive(mobile) {
+  .hero__section {
+    padding: 40px 0;
+  }
+  
+  .section__counter {
+    gap: 1rem;
+    
+    > div {
+      padding: 1rem 0.5rem;
+    }
+  }
+}

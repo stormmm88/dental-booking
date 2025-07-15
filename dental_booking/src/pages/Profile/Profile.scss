@@ -1,0 +1,604 @@
+// ProfilePage.scss
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$primary-color: #1890ff;
+$secondary-color: #52c41a;
+$warning-color: #faad14;
+$error-color: #ff4d4f;
+$text-color: #262626;
+$text-secondary: #8c8c8c;
+$bg-color: #f5f5f5;
+$white: #ffffff;
+$border-color: #d9d9d9;
+$border-radius: 8px;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card-shadow {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  transition: $transition;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@mixin responsive-breakpoint($size) {
+  @if $size == 'mobile' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == 'tablet' {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == 'desktop' {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  }
+}
+
+// Main container
+.profile-page {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 16px;
+  
+  @include responsive-breakpoint('mobile') {
+    padding: 10px 8px;
+  }
+
+  // Container
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  // Loading state
+  &__loading {
+    @include flex-center;
+    min-height: 100vh;
+    background: transparent;
+    
+    .ant-spin-tip {
+      color: $white;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+  }
+
+  // Header
+  &__header {
+    @include flex-between;
+    margin-bottom: 40px;
+    
+    @include responsive-breakpoint('mobile') {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    
+    &-content {
+      text-align: left;
+      
+      @include responsive-breakpoint('mobile') {
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+
+  &__title {
+    color: $white !important;
+    margin-bottom: 8px !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    
+    @include responsive-breakpoint('mobile') {
+      font-size: 2rem !important;
+    }
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 18px !important;
+    
+    @include responsive-breakpoint('mobile') {
+      font-size: 16px !important;
+    }
+  }
+
+  &__logout-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: $white;
+    height: 40px;
+    border-radius: 20px;
+    padding: 0 20px;
+    transition: $transition;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: $white;
+      transform: translateY(-2px);
+    }
+    
+    @include responsive-breakpoint('mobile') {
+      width: 100%;
+      border-radius: $border-radius;
+    }
+  }
+
+  // Login card
+  &__login-card {
+    @include card-shadow;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 10vh;
+    
+    .ant-card-body {
+      padding: 40px;
+      
+      @include responsive-breakpoint('mobile') {
+        padding: 30px 20px;
+      }
+    }
+    
+    .ant-result-icon {
+      color: $primary-color;
+      font-size: 64px;
+    }
+    
+    .ant-result-title {
+      color: $text-color;
+      font-weight: 600;
+    }
+    
+    .ant-result-subtitle {
+      color: $text-secondary;
+      margin-bottom: 30px;
+    }
+    
+    .ant-btn-primary {
+      height: 48px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 24px;
+      min-width: 140px;
+    }
+  }
+
+  // Content area
+  &__content {
+    background: $white;
+    border-radius: 16px;
+    @include card-shadow;
+    overflow: hidden;
+  }
+
+  // Tabs
+  &__tabs {
+    .ant-tabs-nav {
+      background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+      margin: 0;
+      padding: 0 24px;
+      
+      @include responsive-breakpoint('mobile') {
+        padding: 0 16px;
+      }
+      
+      &::before {
+        border-bottom: none;
+      }
+    }
+    
+    .ant-tabs-tab {
+      padding: 16px 20px;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      color: $text-secondary;
+      font-weight: 500;
+      transition: $transition;
+      
+      &:hover {
+        color: $primary-color;
+      }
+      
+      &.ant-tabs-tab-active {
+        color: $primary-color;
+        background: $white;
+        border-bottom: 3px solid $primary-color;
+        
+        .ant-tabs-tab-btn {
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
+    }
+    
+    .ant-tabs-content-holder {
+      padding: 0;
+    }
+    
+    .ant-tabs-tabpane {
+      padding: 24px;
+      
+      @include responsive-breakpoint('mobile') {
+        padding: 16px;
+      }
+    }
+  }
+
+  // Cards
+  &__info-card,
+  &__history-card {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    
+    .ant-card-head {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 20px 0;
+      
+      .ant-card-head-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text-color;
+      }
+    }
+    
+    .ant-card-body {
+      padding: 24px 0;
+      
+      @include responsive-breakpoint('mobile') {
+        padding: 20px 0;
+      }
+    }
+  }
+
+  &__card-header {
+    @include flex-between;
+    width: 100%;
+    
+    @include responsive-breakpoint('mobile') {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    
+    .ant-space {
+      @include responsive-breakpoint('mobile') {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  // Descriptions
+  &__descriptions {
+    .ant-descriptions-item-label {
+      background: #fafafa;
+      color: $text-color;
+      font-weight: 500;
+      width: 35%;
+      
+      @include responsive-breakpoint('mobile') {
+        width: 100%;
+      }
+    }
+    
+    .ant-descriptions-item-content {
+      color: $text-color;
+      font-weight: 400;
+      
+      strong {
+        color: $text-color;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // Form
+  &__form {
+    .ant-form-item-label > label {
+      color: $text-color;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .ant-input,
+    .ant-select-selector {
+      border-radius: $border-radius;
+      border: 1px solid #d9d9d9;
+      transition: $transition;
+      
+      &:hover {
+        border-color: $primary-color;
+      }
+      
+      &:focus,
+      &.ant-input-focused,
+      &.ant-select-focused {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+      }
+    }
+    
+    .ant-btn-primary {
+      border-radius: $border-radius;
+      height: 40px;
+      font-weight: 500;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+      }
+    }
+    
+    .ant-btn-default {
+      border-radius: $border-radius;
+      height: 40px;
+      
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  // Table
+  &__table {
+    .ant-table {
+      border-radius: $border-radius;
+      overflow: hidden;
+    }
+    
+    .ant-table-thead > tr > th {
+      background: #fafafa;
+      color: $text-color;
+      font-weight: 600;
+      border-bottom: 2px solid #f0f0f0;
+      
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+    
+    .ant-table-tbody > tr {
+      transition: $transition;
+      
+      &:hover {
+        background: #f9f9f9;
+        
+        td {
+          background: transparent;
+        }
+      }
+    }
+    
+    .ant-table-tbody > tr > td {
+      color: $text-color;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px;
+    }
+    
+    .ant-tag {
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border: none;
+      
+      &.ant-tag-orange {
+        background: #fff7e6;
+        color: $warning-color;
+      }
+      
+      &.ant-tag-green {
+        background: #f6ffed;
+        color: $secondary-color;
+      }
+      
+      &.ant-tag-blue {
+        background: #f0f9ff;
+        color: $primary-color;
+      }
+      
+      &.ant-tag-red {
+        background: #fff1f0;
+        color: $error-color;
+      }
+    }
+    
+    .ant-btn-link {
+      color: $primary-color;
+      padding: 0;
+      font-weight: 500;
+      
+      &:hover {
+        color: #40a9ff;
+      }
+      
+      &.ant-btn-dangerous {
+        color: $error-color;
+        
+        &:hover {
+          color: #ff7875;
+        }
+      }
+    }
+  }
+
+  // Empty state
+  &__empty-alert {
+    text-align: center;
+    padding: 40px;
+    border-radius: $border-radius;
+    background: #f8f9fa;
+    border: 1px dashed #d9d9d9;
+    
+    .ant-alert-message {
+      color: $text-color;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    
+    .ant-alert-description {
+      color: $text-secondary;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+  }
+
+  // Modal
+  &__detail-modal {
+    .ant-modal-header {
+      background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+      border-bottom: 1px solid #f0f0f0;
+      border-radius: $border-radius $border-radius 0 0;
+      
+      .ant-modal-title {
+        color: $text-color;
+        font-weight: 600;
+      }
+    }
+    
+    .ant-modal-body {
+      padding: 24px;
+      
+      .ant-descriptions-item-label {
+        background: #fafafa;
+        color: $text-color;
+        font-weight: 500;
+      }
+      
+      .ant-descriptions-item-content {
+        color: $text-color;
+      }
+    }
+    
+    .ant-modal-footer {
+      border-top: 1px solid #f0f0f0;
+      padding: 16px 24px;
+      
+      .ant-btn {
+        border-radius: $border-radius;
+        height: 36px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @include responsive-breakpoint('mobile') {
+    &__tabs {
+      .ant-tabs-tab {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+    
+    &__table {
+      .ant-table-tbody > tr > td {
+        padding: 12px 8px;
+        font-size: 14px;
+      }
+    }
+    
+    &__detail-modal {
+      .ant-modal-body {
+        padding: 16px;
+      }
+    }
+  }
+
+  // Animations
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  &__content {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  &__login-card {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  // Custom scrollbar
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+  
+  // Dark mode support (optional)
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    
+    &__content {
+      background: #1f1f1f;
+      color: #ffffff;
+    }
+    
+    &__tabs {
+      .ant-tabs-nav {
+        background: #2a2a2a;
+      }
+      
+      .ant-tabs-tab-active {
+        background: #1f1f1f;
+      }
+    }
+    
+    &__descriptions {
+      .ant-descriptions-item-label {
+        background: #2a2a2a;
+        color: #ffffff;
+      }
+      
+      .ant-descriptions-item-content {
+        color: #ffffff;
+      }
+    }
+  }
+}

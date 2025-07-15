@@ -1,0 +1,861 @@
+// BookingPage.scss
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$primary-color: #1890ff;
+$secondary-color: #52c41a;
+$warning-color: #faad14;
+$error-color: #ff4d4f;
+$text-color: #262626;
+$text-secondary: #8c8c8c;
+$bg-color: #f5f5f5;
+$white: #ffffff;
+$border-color: #d9d9d9;
+$border-radius: 8px;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card-shadow {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  transition: $transition;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin responsive-breakpoint($size) {
+  @if $size == 'mobile' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == 'tablet' {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == 'desktop' {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  }
+}
+
+// Global styles for booking page
+.booking-page {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  
+  // Header styles
+  .booking-header {
+    text-align: center;
+    margin-bottom: 40px;
+    
+    h1 {
+      color: $primary-color;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ant-typography {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .ant-alert {
+      @include card-shadow;
+      border: none;
+      
+      .ant-alert-message {
+        font-weight: 500;
+        color: $text-color;
+      }
+      
+      .ant-alert-description {
+        color: $text-secondary;
+      }
+    }
+  }
+  
+  // Main container
+  .booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    
+    .ant-row {
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    
+    .ant-col {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+  
+  // Clinic info card
+  .clinic-info-card {
+    @include card-shadow;
+    border: none;
+    
+    .ant-card-head {
+      background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+      border-bottom: 1px solid #e8e8e8;
+      border-radius: $border-radius $border-radius 0 0;
+      
+      .ant-card-head-title {
+        color: $text-color;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    
+    .ant-card-body {
+      padding: 24px;
+      
+      .clinic-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+        
+        .anticon {
+          color: $primary-color;
+          font-size: 16px;
+          margin-top: 2px;
+        }
+        
+        .info-content {
+          flex: 1;
+          
+          .info-label {
+            font-weight: 600;
+            color: $text-color;
+            margin-bottom: 4px;
+          }
+          
+          .info-value {
+            color: $text-secondary;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    
+    .ant-divider {
+      margin: 20px 0;
+    }
+    
+    .commitment-card {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #bae0ff;
+      border-radius: $border-radius;
+      padding: 16px;
+      
+      h5 {
+        color: $primary-color;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      
+      .commitment-list {
+        .ant-typography {
+          color: $text-color;
+          margin-bottom: 4px;
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .auth-status-card {
+      border-radius: $border-radius;
+      padding: 12px;
+      margin-top: 16px;
+      
+      &.logged-in {
+        background: linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%);
+        border: 1px solid #b7eb8f;
+      }
+      
+      &.not-logged-in {
+        background: linear-gradient(135deg, #fff7e6 0%, #fef3e2 100%);
+        border: 1px solid #ffd591;
+      }
+      
+      .auth-status-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        
+        .anticon {
+          font-size: 16px;
+        }
+        
+        .status-text {
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+      
+      .auth-description {
+        font-size: 12px;
+        color: $text-secondary;
+        margin-bottom: 8px;
+      }
+      
+      .ant-btn-link {
+        padding: 0;
+        height: auto;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  // Booking form card
+  .booking-form-card {
+    @include card-shadow;
+    border: none;
+    
+    .ant-card-head {
+      background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+      border-bottom: 1px solid #e8e8e8;
+      border-radius: $border-radius $border-radius 0 0;
+      
+      .ant-card-head-title {
+        color: $text-color;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    
+    .ant-card-body {
+      padding: 24px;
+      
+      @include responsive-breakpoint('mobile') {
+        padding: 16px;
+      }
+    }
+  }
+  
+  // Form styles
+  .booking-form {
+    .ant-form-item-label > label {
+      color: $text-color;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .ant-form-item-required::before {
+      color: $error-color;
+    }
+    
+    // Appointment type radio buttons
+    .appointment-type-group {
+      .ant-radio-button-wrapper {
+        height: auto;
+        padding: 0;
+        border-radius: $border-radius;
+        border: 1px solid #d9d9d9;
+        transition: $transition;
+        
+        &:hover {
+          border-color: $primary-color;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+        }
+        
+        &.ant-radio-button-wrapper-checked {
+          border-color: $primary-color;
+          background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+          
+          &::before {
+            background: $primary-color;
+          }
+        }
+        
+        .appointment-type-content {
+          padding: 12px 16px;
+          text-align: center;
+          width: 100%;
+          
+          .anticon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: $primary-color;
+          }
+          
+          .type-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: $text-color;
+          }
+        }
+      }
+    }
+    
+    // Account info card
+    .account-info-card {
+      background: linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%);
+      border: 1px solid #b7eb8f;
+      border-radius: $border-radius;
+      padding: 16px;
+      margin-bottom: 24px;
+      
+      .account-info-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        
+        .anticon {
+          color: $secondary-color;
+        }
+        
+        .header-text {
+          font-weight: 600;
+          color: $text-color;
+        }
+      }
+      
+      .ant-checkbox-wrapper {
+        margin-bottom: 12px;
+        
+        .ant-checkbox-inner {
+          border-color: $secondary-color;
+          
+          &:hover {
+            border-color: $secondary-color;
+          }
+        }
+        
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $secondary-color;
+          border-color: $secondary-color;
+        }
+      }
+      
+      .account-details {
+        margin-left: 24px;
+        
+        .detail-item {
+          margin-bottom: 4px;
+          font-size: 14px;
+          color: $text-color;
+          
+          strong {
+            font-weight: 600;
+          }
+        }
+      }
+      
+      .ant-alert {
+        margin-top: 8px;
+        border-radius: $border-radius;
+      }
+    }
+    
+    // Input fields
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-select-selector,
+    .ant-picker {
+      border-radius: $border-radius;
+      border: 1px solid #d9d9d9;
+      transition: $transition;
+      
+      &:hover {
+        border-color: $primary-color;
+      }
+      
+      &:focus,
+      &.ant-input-focused,
+      &.ant-select-focused,
+      &.ant-picker-focused {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+      }
+    }
+    
+    .ant-input-affix-wrapper {
+      padding: 8px 12px;
+      
+      .ant-input-prefix {
+        color: $text-secondary;
+        margin-right: 8px;
+      }
+    }
+    
+    .ant-select-selector {
+      height: 40px;
+      
+      .ant-select-selection-item {
+        line-height: 38px;
+      }
+    }
+    
+    .ant-picker {
+      width: 100%;
+      height: 40px;
+      
+      .ant-picker-suffix {
+        color: $text-secondary;
+      }
+    }
+    
+    // Textarea
+    .ant-input {
+      &[data-ant-input="true"] {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+    
+    // Edit button
+    .ant-btn-link {
+      padding: 0;
+      height: auto;
+      font-weight: 500;
+      color: $primary-color;
+      
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+    
+    // Submit button
+    .submit-button {
+      width: 100%;
+      height: 48px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 24px;
+      border: none;
+      background: linear-gradient(135deg, $primary-color 0%, #40a9ff 100%);
+      transition: $transition;
+      
+      &:hover {
+        background: linear-gradient(135deg, #40a9ff 0%, $primary-color 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(24, 144, 255, 0.3);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+      
+      &.ant-btn-loading {
+        background: linear-gradient(135deg, #91d5ff 0%, #bae0ff 100%);
+      }
+    }
+  }
+  
+  // Success result page
+  .success-result {
+    .ant-result-icon {
+      .anticon {
+        color: $secondary-color;
+        font-size: 72px;
+      }
+    }
+    
+    .ant-result-title {
+      color: $text-color;
+      font-weight: 600;
+      font-size: 24px;
+    }
+    
+    .ant-result-subtitle {
+      color: $text-secondary;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .appointment-details-card {
+      @include card-shadow;
+      margin-top: 20px;
+      border-radius: $border-radius;
+      
+      .ant-card-head {
+        background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+        border-bottom: 1px solid #e8e8e8;
+        border-radius: $border-radius $border-radius 0 0;
+        
+        .ant-card-head-title {
+          color: $text-color;
+          font-weight: 600;
+          font-size: 16px;
+        }
+      }
+      
+      .ant-card-body {
+        padding: 20px;
+        
+        .detail-item {
+          margin-bottom: 8px;
+          font-size: 14px;
+          color: $text-color;
+          
+          strong {
+            font-weight: 600;
+            color: $text-color;
+          }
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  // Loading state
+  .loading-container {
+    @include flex-center;
+    min-height: 100vh;
+    background: transparent;
+    
+    .ant-spin {
+      .ant-spin-tip {
+        color: $white;
+        font-size: 16px;
+        margin-top: 12px;
+      }
+    }
+  }
+  
+  // Responsive design
+  @include responsive-breakpoint('mobile') {
+    .booking-header {
+      margin-bottom: 30px;
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .ant-typography {
+        font-size: 14px;
+      }
+    }
+    
+    .booking-container {
+      padding: 0 8px;
+      
+      .ant-row {
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+      
+      .ant-col {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+    
+    .clinic-info-card,
+    .booking-form-card {
+      margin-bottom: 16px;
+      
+      .ant-card-body {
+        padding: 16px;
+      }
+    }
+    
+    .booking-form {
+      .appointment-type-group {
+        .ant-radio-button-wrapper {
+          margin-bottom: 8px;
+          
+          .appointment-type-content {
+            padding: 10px 12px;
+            
+            .anticon {
+              font-size: 18px;
+            }
+            
+            .type-label {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+      
+      .account-info-card {
+        padding: 12px;
+        
+        .account-details {
+          margin-left: 16px;
+          
+          .detail-item {
+            font-size: 13px;
+          }
+        }
+      }
+      
+      .submit-button {
+        height: 44px;
+        font-size: 15px;
+        border-radius: 22px;
+      }
+    }
+  }
+  
+  @include responsive-breakpoint('tablet') {
+    .booking-container {
+      padding: 0 12px;
+    }
+    
+    .clinic-info-card,
+    .booking-form-card {
+      .ant-card-body {
+        padding: 20px;
+      }
+    }
+  }
+  
+  // Animation keyframes
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  // Apply animations
+  .clinic-info-card {
+    animation: slideInLeft 0.6s ease-out;
+  }
+  
+  .booking-form-card {
+    animation: slideInRight 0.6s ease-out;
+  }
+  
+  .success-result {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .booking-header {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  // Custom scrollbar
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+  
+  // Focus styles for accessibility
+  .ant-btn:focus,
+  .ant-input:focus,
+  .ant-select:focus,
+  .ant-picker:focus,
+  .ant-checkbox:focus,
+  .ant-radio:focus {
+    outline: 2px solid rgba(24, 144, 255, 0.5);
+    outline-offset: 2px;
+  }
+  
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    .clinic-info-card,
+    .booking-form-card,
+    .account-info-card,
+    .commitment-card {
+      border: 2px solid $text-color;
+    }
+    
+    .ant-btn-primary {
+      background: $text-color;
+      border-color: $text-color;
+    }
+    
+    .ant-input,
+    .ant-select-selector,
+    .ant-picker {
+      border: 2px solid $text-color;
+    }
+  }
+  
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    
+    .clinic-info-card,
+    .booking-form-card {
+      background: #1f1f1f;
+      color: #ffffff;
+      
+      .ant-card-head {
+        background: linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 100%);
+        border-bottom-color: #404040;
+        
+        .ant-card-head-title {
+          color: #ffffff;
+        }
+      }
+    }
+    
+    .commitment-card {
+      background: linear-gradient(135deg, #1a2332 0%, #1e2a3a 100%);
+      border-color: #3a4d61;
+      
+      h5 {
+        color: #66b3ff;
+      }
+    }
+    
+    .account-info-card {
+      background: linear-gradient(135deg, #1a2d1a 0%, #1e321e 100%);
+      border-color: #4a6b4a;
+      
+      .account-info-header {
+        .anticon {
+          color: #5cb85c;
+        }
+        
+        .header-text {
+          color: #ffffff;
+        }
+      }
+    }
+    
+    .ant-input,
+    .ant-select-selector,
+    .ant-picker {
+      background: #2a2a2a;
+      border-color: #4a4a4a;
+      color: #ffffff;
+      
+      &:hover {
+        border-color: #66b3ff;
+      }
+      
+      &:focus,
+      &.ant-input-focused,
+      &.ant-select-focused,
+      &.ant-picker-focused {
+        border-color: #66b3ff;
+        box-shadow: 0 0 0 2px rgba(102, 179, 255, 0.1);
+      }
+    }
+    
+    .ant-form-item-label > label {
+      color: #ffffff;
+    }
+    
+    .booking-header {
+      h1 {
+        color: #66b3ff;
+      }
+      
+      .ant-typography {
+        color: #cccccc;
+      }
+    }
+  }
+  
+  // Print styles
+  @media print {
+    .booking-page {
+      background: white;
+      
+      .clinic-info-card,
+      .booking-form-card,
+      .success-result {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+      
+      .ant-btn {
+        display: none;
+      }
+      
+      .booking-header {
+        h1 {
+          color: black;
+        }
+        
+        .ant-typography {
+          color: black;
+        }
+      }
+    }
+  }
+}

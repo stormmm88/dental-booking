@@ -1,0 +1,412 @@
+// Variables
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$accent-color: #10b981;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$white: #ffffff;
+$light-bg: #f8fafc;
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-heavy;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: 1024px) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: 1025px) { @content; }
+  }
+}
+
+// Services Section
+.services__section {
+  padding: 80px 0;
+  background: $white;
+  position: relative;
+  overflow: hidden;
+  
+  @include responsive(mobile) {
+    padding: 60px 0;
+  }
+  
+  // Subtle background decoration
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, rgba(16, 185, 129, 0.02) 100%);
+    z-index: 1;
+  }
+}
+
+.services__content {
+  position: relative;
+  z-index: 2;
+}
+
+// Header Section
+.services__header {
+  margin-bottom: 3rem;
+  
+  @include responsive(mobile) {
+    margin-bottom: 2rem;
+  }
+}
+
+.services__title {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: $text-primary;
+  
+  @include responsive(tablet) {
+    font-size: 2.5rem;
+  }
+  
+  @include responsive(mobile) {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  // Highlight text
+  span {
+    color: $primary-color;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 2px;
+    }
+  }
+}
+
+.services__desc {
+  font-size: 1.125rem;
+  color: $text-secondary;
+  line-height: 1.7;
+  margin-bottom: 0;
+  
+  @include responsive(mobile) {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+// Button Section
+.services__button-wrapper {
+  @include flex-center;
+  height: 100%;
+  
+  @include responsive(mobile) {
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+}
+
+.services__link {
+  text-decoration: none;
+}
+
+.btn--services {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  color: $white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: $shadow-medium;
+  position: relative;
+  overflow: hidden;
+  
+  @include button-hover;
+  
+  @include responsive(mobile) {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+  
+  // Ripple effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Services Grid
+.services__grid {
+  position: relative;
+}
+
+// Service Card
+.service__card {
+  background: $white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: $shadow-light;
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-heavy;
+    border-color: rgba(37, 99, 235, 0.2);
+  }
+  
+  @include responsive(mobile) {
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+// Image Section
+.service__image-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  
+  @include responsive(mobile) {
+    height: 200px;
+  }
+}
+
+.service__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  
+  .service__card:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.service__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.8) 0%, rgba(16, 185, 129, 0.8) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  
+  .service__card:hover & {
+    opacity: 1;
+  }
+}
+
+.service__name {
+  color: $white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  @include responsive(mobile) {
+    font-size: 1.25rem;
+  }
+}
+
+// Content Section
+.service__content {
+  padding: 2rem;
+  
+  @include responsive(mobile) {
+    padding: 1.5rem;
+  }
+}
+
+.service__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 1rem;
+  
+  @include responsive(mobile) {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.service__description {
+  font-size: 1rem;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-bottom: 0;
+  
+  @include responsive(mobile) {
+    font-size: 0.9rem;
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Animation Classes
+.services__title {
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.services__desc {
+  animation: slideInLeft 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.services__button-wrapper {
+  animation: slideInRight 0.8s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.service__card {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  
+  // Stagger animation delays are handled inline via style attribute
+}
+
+// Responsive Grid Adjustments
+@include responsive(tablet) {
+  .services__section {
+    padding: 60px 0;
+  }
+  
+  .services__grid {
+    margin-top: 2rem;
+  }
+}
+
+@include responsive(mobile) {
+  .services__section {
+    padding: 40px 0;
+  }
+  
+  .services__header {
+    text-align: center;
+  }
+  
+  .services__grid {
+    margin-top: 1.5rem;
+  }
+  
+  .service__card {
+    margin-bottom: 1rem;
+  }
+}
+
+// Hover Effects for Desktop
+@media (min-width: 1025px) {
+  .service__card {
+    &:hover {
+      .service__title {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// Focus States for Accessibility
+.services__link:focus,
+.btn--services:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Print Styles
+@media print {
+  .services__section {
+    padding: 20px 0;
+    
+    .service__card {
+      break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #ccc;
+    }
+    
+    .service__overlay {
+      display: none;
+    }
+  }
+}

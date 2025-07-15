@@ -1,0 +1,297 @@
+// Variables
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$accent-color: #10b981;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$white: #ffffff;
+$light-bg: #f8fafc;
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-heavy;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: 1024px) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: 1025px) { @content; }
+  }
+}
+
+// Voucher Section
+.voucher__section {
+  padding: 80px 0;
+  // background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+  
+  @include responsive(mobile) {
+    padding: 60px 0;
+  }
+  
+  // Background decorations
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite reverse;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+    
+    @include responsive(mobile) {
+      padding: 0 16px;
+    }
+  }
+}
+
+.voucher__content {
+  position: relative;
+  z-index: 2;
+}
+
+// Text Content
+.voucher__text {
+  animation: fadeInUp 0.6s ease forwards;
+  
+  @include responsive(mobile) {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.voucher__header {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: $text-primary;
+  
+  @include responsive(tablet) {
+    font-size: 2.2rem;
+  }
+  
+  @include responsive(mobile) {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  span {
+    color: $primary-color;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 2px;
+    }
+  }
+}
+
+.voucher__desc {
+  font-size: 1.125rem;
+  color: $text-secondary;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  
+  @include responsive(mobile) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.voucher__link {
+  text-decoration: none;
+  display: inline-block;
+  
+  .btn {
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    color: $white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: $shadow-medium;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    @include button-hover;
+    
+    @include responsive(mobile) {
+      padding: 14px 24px;
+      font-size: 1rem;
+    }
+    
+    // Ripple effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s;
+    }
+    
+    &:hover::before {
+      left: 100%;
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
+    
+    &--voucher {
+      background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+      
+      &:hover {
+        background: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%);
+      }
+    }
+  }
+}
+
+// Image Section
+.voucher__image {
+  position: relative;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.3s;
+  
+  @include responsive(mobile) {
+    margin-top: 2rem;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: $shadow-heavy;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  
+  // Decorative elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    right: 40px;
+    bottom: 40px;
+    background: linear-gradient(135deg, $accent-color, #8b5cf6);
+    border-radius: 20px;
+    z-index: -2;
+    opacity: 0.05;
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@include responsive(tablet) {
+  .voucher__section {
+    padding: 60px 0;
+  }
+  
+  .voucher__text {
+    margin-bottom: 2rem;
+  }
+}
+
+@include responsive(mobile) {
+  .voucher__section {
+    padding: 40px 0;
+  }
+  
+  .voucher__text {
+    text-align: center;
+  }
+  
+  .voucher__image {
+    text-align: center;
+  }
+}
